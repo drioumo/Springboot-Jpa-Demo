@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator=" template1 ">
+
+<head>
+<meta charset="utf-8" />
+<title>my bank</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="col-md-12  ">
+			<!-- //spacer40"> -->
+			<div class="panel panel-primary">
+				<div class="panel-heading">les comptes</div>
+
+				<div class="panel-body">
+					<!-- Add a button -->
+					<a th:href="@{/deleteCompte}" class="btn btn-primary btn-sm mb-3">
+						delete Compte </a>
+
+
+					<table class="table panel-primary">
+						<tr>
+							<th>Client</th>
+							<th>Code Compte</th>
+							<th>solde</th>
+							<th>dateCreation</th>
+							<th>Type</th>
+							<th>Typevalue</th>
+							<th>Action</th>
+							<th>Consultaion</th>
+
+
+						</tr>
+						<tr th:each="o:${listCompte}">
+							<td th:text="${o.client.nomClient}"></td>
+							<td th:text="${o.codeCompte}"></td>
+							<td th:text="${o.solde}"></td>
+							<td th:text="${o.dateCreation}"></td>
+
+
+							<td th:if="${o.class.simpleName=='ComptCourant'}"
+								th:text="${o.class.simpleName}"></td>
+							<td th:if="${o.class.simpleName=='CompteEpargne'}"
+								th:text="${o.class.simpleName}"></td>
+
+							<td th:if="${o.class.simpleName=='ComptCourant'}"
+								th:text="${o.decouvert}"></td>
+							<td th:if="${o.class.simpleName=='CompteEpargne'}"
+								th:text="${o.taux}"></td>
+
+							<td><a
+								th:href="@{/deleteCompte(codeCompte=${o.codeCompte})}">
+									Delete </a></td>
+
+							<td><a
+								th:href="@{/consulterCompte(codeCompte=${o.codeCompte})}"
+								class="btn btn-primary btn-sm mb-3"> consulter </a></td>
+
+						</tr>
+
+
+					</table>
+
+					<div class="contaiver">
+						<ul>
+							<li th:each="p, status:${pages}"><a
+								th:text="${status.index}"> </a></li>
+						</ul>
+					</div>
+					<a th:href="@{/listComptes}">back to Comptes</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

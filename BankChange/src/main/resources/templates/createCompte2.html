@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator=" template1 ">
+
+<head>
+<meta charset="utf-8" />
+<title>my bank</title>
+
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="col-md-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Create Compte</div>
+				<div class="panel-body">
+
+					<form th:action="@{/comptes/saveCompte2}" name='f'
+						th:object="${compteModel}" method="post">
+						<div>
+
+							<input type="radio" name="typeCompte" value="Courant"
+								id="radio-courant" checked="checked"
+								onchange="document.getElementById('forCourant').style.display='block';
+			document.getElementById('forEpagne').style.display='none';" />
+
+
+
+							<label>Courant</label> <input type="radio" name="typeCompte"
+								value="Epagne" id="radio-epange"
+								onchange="document.getElementById('forCourant').style.display='none';
+			document.getElementById('forEpagne').style.display='block';" />
+
+							<label>Epagne</label>
+
+
+						</div>
+
+						<div>
+							<label>Code Compte</label> <input name="codeCompte"
+								th:value="${codeCompte}" />
+						</div>
+
+						<div></div>
+						<div>
+							<label>Solde</label> <input name="soldeCompte"
+								th:value="${soldeCompte}" />
+						</div>
+
+
+						<div>
+							<label>client</label> <select th:field="*{code}">
+
+								<option th:each="client : ${listClient}"
+									th:value="${client.codeClient}" th:text="${client.nomClient}"></option>
+
+							</select>
+
+						</div>
+						<div id="forEpagne" style="display: none">
+							<label>Epagne:</label> <input type="text" name="taux" />
+						</div>
+
+						<div id="forCourant" style="display: block">
+							<label>Courant:</label> <input type="text" name="decouvert" />
+						</div>
+
+
+
+						<div class="text-danger"
+							th:text="${#httpServletRequest.getParameter('error')}"></div>
+
+						<button type="submit" class="btn btn-primary">Save</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</body>
+</html>

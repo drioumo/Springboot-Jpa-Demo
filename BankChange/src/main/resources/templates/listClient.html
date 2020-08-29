@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator=" template1 ">
+
+<head>
+<meta charset="utf-8" />
+<title>my bank</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="col-md-12  ">
+			<!-- //spacer40"> -->
+			<div class="panel panel-primary">
+				<div class="panel-heading">les comptes</div>
+
+				<div class="panel-body">
+
+
+
+					<table class="table panel-primary">
+						<tr>
+							<th>code</th>
+							<th>email</th>
+							<th>nom</th>
+							<th>action</th>
+
+						</tr>
+
+						<tr th:each="o1:${listClient}">
+							<td th:text="${o1.codeClient}"></td>
+							<td th:text="${o1.adresseClient}"></td>
+							<td th:text="${o1.nomClient}"></td>
+							<!-- <td><a th:href="@{/deleteClient(client=${o.id})}">Delete </a></td> -->
+
+
+						</tr>
+
+
+					</table>
+					<div class="container">
+						<ul class="nav nav-pills">
+							<li th:each="p,status:${pages}"><a
+								th:href="@{/clients/listClient(page=${status.index})}"
+								th:text="${status.index}"></a></li>
+						</ul>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
